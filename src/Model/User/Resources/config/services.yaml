@@ -1,0 +1,18 @@
+# yaml-language-server: $schema=../../../../../vendor/symfony/dependency-injection/Loader/schema/services.schema.json
+parameters:
+    user.reset_token_ttl: 'PT1H'
+    user.confirm_token_ttl: 'P1D'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    user.reset_token.interval:
+        class: DateInterval
+        arguments: ['%user.reset_token_ttl%']
+
+    App\Model\User\Services\ResetTokenizer:
+        arguments:
+            $interval: '@user.reset_token.interval'

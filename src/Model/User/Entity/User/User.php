@@ -4,6 +4,7 @@ namespace App\Model\User\Entity\User;
 
 
 use AllowDynamicProperties;
+use App\Model\User\Entity\User\ResetToken;
 use App\Model\User\Enum\UserStatus;
 use App\Model\User\ValueObject\Email;
 use App\Model\User\ValueObject\Id;
@@ -23,6 +24,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Email $email;
     private ?string $password = null;
     private ?string $confirmToken = null;
+
+    private ?ResetToken $resetToken = null;
     private Collection $networks;
 
     public function __construct(
@@ -76,6 +79,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->networks->add(Network::fromNetwork($this, $network, $identity));
+    }
+
+    public function getResetToken(): ResetToken
+    {
+        return $this->resetToken;
+    }
+
+    public function requestPasswordReset(ResetToken $token, DateTimeImmutable $now): void
+    {
+        if (!$this->isActive()) {
+            throw new DomainException('User is not active.');
+        }
+
+        if ($this->resetToken !== null && !$this->resetToken->isExpiredTo($now)) {
+            throw new DomainException('Reset already requested.');
+        }
+
+        $this->resetToken = $token;
     }
 
     /**

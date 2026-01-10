@@ -83,9 +83,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getQuery()
             ->getSingleScalarResult() > 0;
     }
-
-    public function hasByEmail(Email $email): bool
+    public function getByEmail(Email $email): ?User
     {
-        // TODO: Implement hasByEmail() method.
+        return $this->findOneBy(['email' => $email]);
     }
 }
