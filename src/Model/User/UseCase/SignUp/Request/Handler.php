@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\User\UseCase\SignUp\Request;
 
+use App\Model\User\Contracts\FlasherInterface;
 use App\Model\User\Contracts\PasswordHasherInterface;
 use App\Model\User\Contracts\SignUpConfirmEmailSenderInterface;
 use App\Model\User\Contracts\TokenGeneratorInterface;
@@ -21,7 +22,8 @@ readonly class Handler
         private UserRepositoryInterface           $userRepository,
         private PasswordHasherInterface           $hasher,
         private TokenGeneratorInterface           $tokenGenerator,
-        private SignUpConfirmEmailSenderInterface $sender
+        private SignUpConfirmEmailSenderInterface $sender,
+        private FlasherInterface $flasher
     )
     {
     }
@@ -33,17 +35,18 @@ readonly class Handler
         if ($this->userRepository->findOneBy(['email' => $mail])) {
             throw new DomainException('Email already exists');
         }
+        $token = $this->tokenGenerator->generate();
 
-        $user = new User(
+        $user = User::signUpByEmail(
             Id::next(),
+            new DateTimeImmutable(),
             Email::fromString($command->email),
             $this->hasher->hash($command->password),
-            new DateTimeImmutable(),
-            UserStatus::WAIT
+            $token,
         );
         $token = $this->tokenGenerator->generate();
         $this->userRepository->add($user);
-        $this->userRepository->save();
+        $this->flasher->flush();
         $this->sender->send($user->getEmail(), $token);
 
     }

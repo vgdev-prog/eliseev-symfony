@@ -4,6 +4,7 @@ namespace App\Model\User\Repository;
 
 use App\Model\User\Contracts\UserRepositoryInterface;
 use App\Model\User\Entity\User\User;
+use App\Model\User\ValueObject\Email;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -34,8 +35,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
 
         $user->setPassword($newHashedPassword);
-        $this->getEntityManager()->persist($user);
-        $this->getEntityManager()->flush();
     }
 
     //    /**
@@ -67,8 +66,13 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->entityManager->persist($user);
     }
 
-    public function save():void
+    public function findByConfirmToken(string $token): ?User
     {
-        $this->entityManager->flush();
+        return $this->findOneBy(['token' => $token]);
+    }
+
+    public function hasByEmail(Email $email): bool
+    {
+        // TODO: Implement hasByEmail() method.
     }
 }
