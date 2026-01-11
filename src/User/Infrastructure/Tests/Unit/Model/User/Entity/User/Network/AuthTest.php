@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace translations\Unit\Model\User\Entity\User\Network;
+namespace App\User\Infrastructure\Tests\Unit\Model\User\Entity\User\Network;
 
 use App\Shared\Domain\ValueObject\Id;
 use App\User\Domain\Entity\Network;

@@ -3,9 +3,9 @@
 namespace App\User\Domain\Entity;
 
 
+use App\Shared\Domain\ValueObject\Email;
 use App\Shared\Domain\ValueObject\Id;
 use App\User\Domain\Enum\UserStatus;
-use App\User\Domain\ValueObject\Email;
 use App\User\Domain\ValueObject\ResetToken;
 use App\User\Infrastructure\Repository\UserRepository;
 use DateTimeImmutable;
@@ -18,7 +18,7 @@ use Exception;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-#[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Entity]
 #[ORM\Table(name: 'user_users')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 
@@ -28,7 +28,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         #[ORM\Column(type: 'uuid', unique: true)]
         private Id                $id,
 
-        #[ORM\Column(type: 'string', length: 255)]
+        #[ORM\Column(type: 'date_immutable', length: 255)]
         private DateTimeImmutable $date,
 
         #[ORM\Column(type: 'string', length: 255, nullable: true)]
@@ -46,7 +46,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         #[ORM\Embedded(class: ResetToken::class, columnPrefix: 'reset_token')]
         private ?ResetToken       $resetToken,
 
-        #[ORM\Column(type: 'string', length: 255)]
+        #[ORM\OneToMany(targetEntity: Network::class ,mappedBy: 'user',cascade: ['persist'], orphanRemoval: true)]
         private Collection        $networks = new ArrayCollection()
     )
     {
@@ -113,7 +113,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         UserStatus        $userStatus,
         string            $token,
         ResetToken        $resetToken
-    ): void
+    ): self
     {
         $user = new self(
             id: $id,
@@ -128,6 +128,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if (!$user->isNew()) {
             throw new DomainException('User is already signed up.');
         }
+
+        return $user;
     }
 
     /**

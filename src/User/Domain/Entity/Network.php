@@ -6,17 +6,29 @@ namespace App\User\Domain\Entity;
 
 use App\Shared\Domain\ValueObject\Id;
 use Exception;
+use Doctrine\ORM\Mapping as ORM;
 
-final class Network
+#[ORM\Entity]
+#[ORM\Table(name: 'users_user_networks')]
+class Network
 {
+
     /**
      * @throws Exception
      */
-
     private function __construct(
+        #[ORM\Id]
+        #[ORM\Column(type: 'uuid', unique: true)]
         private Id $id,
+
+        #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'networks')]
+        #[ORM\JoinColumn(name: 'user_id',nullable: false, onDelete: 'CASCADE')]
         private User  $user,
+
+        #[ORM\Column(type: 'string', length: 255)]
         public string $network,
+
+        #[ORM\Column(type: 'string', length: 255)]
         public string $identity
     )
     {
@@ -26,6 +38,19 @@ final class Network
         if (!$this->identity) {
             throw new Exception('Network identity is required.');
         }
+    }
+
+    /**
+     * Getters
+     */
+
+    public function getId():Id
+    {
+        return $this->id;
+    }
+    public function getUser(): User
+    {
+        return $this->user;
     }
 
     /**

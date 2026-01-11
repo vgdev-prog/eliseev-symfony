@@ -1,0 +1,5 @@
+doctrine:
+    dbal:
+        types:
+            email: App\Shared\Infrastructure\Persistance\Type\EmailType
+            id: App\Shared\Infrastructure\Persistance\Type\IdType

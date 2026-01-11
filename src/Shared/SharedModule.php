@@ -24,4 +24,12 @@ final class SharedModule extends AbstractModule
     {
         return [];
     }
+
+    public function getConfigFiles():array
+    {
+        return [
+            'doctrine.yaml',
+            'services.yaml',
+        ];
+    }
 }

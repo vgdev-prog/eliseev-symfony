@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Persistance;
 
-use App\Shared\Domain\Contracts\FlusherInterface;
+use App\Shared\Domain\Contract\FlusherInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 class DoctrineFlusher implements FlusherInterface

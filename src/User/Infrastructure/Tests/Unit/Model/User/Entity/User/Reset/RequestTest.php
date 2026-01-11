@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace translations\Unit\Model\User\Entity\User\Reset;
+namespace App\User\Infrastructure\Tests\Unit\Model\User\Entity\User\Reset;
 
 use App\Shared\Domain\ValueObject\Id;
 use App\User\Domain\Entity\User;

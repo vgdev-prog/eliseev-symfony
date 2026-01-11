@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\User\Application\UseCase\SignUp\Request;
 
 use App\Model\Shared\Domain\Contracts\FlasherInterface;
-use App\Shared\Domain\Contracts\TokenGeneratorInterface;
+use App\Shared\Domain\Contract\TokenGeneratorInterface;
 use App\Shared\Domain\ValueObject\Id;
 use App\User\Domain\Contract\PasswordHasherInterface;
 use App\User\Domain\Contract\SignUpConfirmEmailSenderInterface;

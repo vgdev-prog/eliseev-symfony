@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Domain\Contracts;
+namespace App\Shared\Domain\Contract;
 
 interface TokenGeneratorInterface
 {

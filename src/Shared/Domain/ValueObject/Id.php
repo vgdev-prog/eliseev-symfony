@@ -23,4 +23,9 @@ readonly class Id
     {
         return $this->id;
     }
+
+    public function fromString(): Id
+    {
+        return new self($this->id);
+    }
 }

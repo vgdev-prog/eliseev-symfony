@@ -20,7 +20,7 @@ services:
             - '../../Entity/'
             - '../../Infrastructure/config/'
 
-    App\User\Domain\Contract\UserRepositoryInterface:
+    App\User\Domain\Contract\UserMailerInterface:
         alias: App\User\Infrastructure\Services\SignUpMailer
 
     App\User\Infrastructure\Services\SignUpMailer:
