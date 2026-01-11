@@ -24,7 +24,8 @@ final class UserModule extends AbstractModule
     {
         return [
             'services.yaml',
-            'doctrine.yaml',  // Doctrine ORM mapping
+            'doctrine.yaml',
+            'twig.yaml',
         ];
     }
 
@@ -40,6 +41,6 @@ final class UserModule extends AbstractModule
 
     public function boot(): void
     {
-        
+
     }
 }

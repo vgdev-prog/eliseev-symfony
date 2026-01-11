@@ -1,6 +1,6 @@
 <?php
 
-namespace App\User\Domain\Entity\User;
+namespace App\User\Domain\Entity;
 
 
 use App\Shared\Domain\ValueObject\Id;
@@ -178,6 +178,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->networks->add(Network::fromNetwork($this, $network, $identity));
     }
 
+    public function confirmSignUp(): void
+    {
+        if ($this->isActive()) {
+            throw new DomainException("User already confirmed.");
+        }
+        $this->userStatus = UserStatus::ACTIVE;
+        $this->confirmToken = null;
+    }
+
+    public function upgradePasswordHash(string $plainPassword): void
+    {
+        $this->password = $plainPassword;
+    }
+
     public function requestPasswordReset(ResetToken $token, DateTimeImmutable $now): void
     {
         if (!$this->isActive()) {
@@ -200,15 +214,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function isWait(): bool
     {
         return $this->userStatus === UserStatus::WAIT;
-    }
-
-    public function confirmSignUp(): void
-    {
-        if ($this->isActive()) {
-            throw new DomainException("User already confirmed.");
-        }
-        $this->userStatus = UserStatus::ACTIVE;
-        $this->confirmToken = null;
     }
 
 

@@ -33,3 +33,6 @@ services:
     # Domain Event Dispatcher
     App\Shared\Domain\Event\DomainEventDispatcherInterface:
         alias: App\Shared\Infrastructure\Event\DomainEventDispatcher
+
+    App\Shared\Domain\Contracts\EventDispatcherInterface:
+        alias: App\Shared\Infrastructure\Services\TokenGenerator

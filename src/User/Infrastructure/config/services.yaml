@@ -14,12 +14,19 @@ services:
         autowire: true
         autoconfigure: true
 
-    # Auto-register ONLY User module services
     App\User\:
         resource: '../../'
         exclude:
             - '../../Entity/'
             - '../../Infrastructure/config/'
+
+    App\User\Domain\Contract\UserRepositoryInterface:
+        alias: App\User\Infrastructure\Services\SignUpMailer
+
+    App\User\Infrastructure\Services\SignUpMailer:
+        arguments:
+            $senderMail: '%env(MAILER_SENDER)'
+
 
     # Reset token interval
     user.reset_token.interval:
@@ -30,6 +37,8 @@ services:
     user.confirm_token.interval:
         class: DateInterval
         arguments: ['%user.confirm_token_ttl%']
+
+
 
     # ResetTokenizer service (if it exists)
     # App\User\Services\ResetTokenizer:

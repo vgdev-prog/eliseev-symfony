@@ -2,9 +2,9 @@
 
 namespace App\User\Infrastructure\Repository;
 
+use App\Shared\Domain\ValueObject\Email;
 use App\User\Domain\Contract\UserRepositoryInterface;
-use App\User\Domain\Entity\User\User;
-use App\User\Domain\ValueObject\Email;
+use App\User\Domain\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -13,7 +13,6 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
- * @extends ServiceEntityRepository<User>
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface, UserRepositoryInterface
 {
@@ -34,7 +33,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $user::class));
         }
 
-        $user->setPassword($newHashedPassword);
+        $user->upgradePasswordHash($newHashedPassword);
     }
 
     //    /**

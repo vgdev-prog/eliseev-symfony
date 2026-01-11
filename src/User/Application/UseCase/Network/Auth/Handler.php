@@ -7,7 +7,7 @@ namespace App\User\Application\UseCase\Network\Auth;
 use App\Model\Shared\Domain\Contracts\FlasherInterface;
 use App\Shared\Domain\ValueObject\Id;
 use App\User\Domain\Contract\UserRepositoryInterface;
-use App\User\Domain\Entity\User\User;
+use App\User\Domain\Entity\User;
 use DateTimeImmutable;
 use DomainException;
 use Exception;
@@ -26,16 +26,13 @@ class Handler
      */
     public function handle(Command $command): void
     {
-        if ($this->userRepository->hasByNetworkIdentity($command->network,$command->identity)) {
+        if ($this->userRepository->hasByNetworkIdentity($command->network, $command->identity)) {
             throw new DomainException('User already exists.');
         }
 
-        $user = new User(
+        $user = User::signUpByNetwork(
             Id::next(),
-        new DateTimeImmutable()
-        );
-
-        $user->signUpByNetwork(
+            new DateTimeImmutable(),
             $command->network,
             $command->identity
         );

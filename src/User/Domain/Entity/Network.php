@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\User\Domain\Entity\User;
+namespace App\User\Domain\Entity;
 
 use App\Shared\Domain\ValueObject\Id;
 use Exception;

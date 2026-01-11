@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Model\User\Entity\User\SignUp;
+namespace translations\Unit\Model\User\Entity\User\SignUp;
 
 use App\Shared\Domain\ValueObject\Id;
-use App\User\Domain\Entity\User\User;
+use App\User\Domain\Entity\User;
 use App\User\Domain\ValueObject\Email;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;

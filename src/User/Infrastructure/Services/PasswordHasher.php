@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\User\Infrastructure\Services;
 
 use App\User\Domain\Contract\PasswordHasherInterface;
-use App\User\Domain\Entity\User\User;
+use App\User\Domain\Entity\User;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 
-class SymfonyPasswordHasher implements PasswordHasherInterface
+class PasswordHasher implements PasswordHasherInterface
 {
     public function __construct(
         private PasswordHasherFactoryInterface $passwordHasherFactory,

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\User\Infrastructure\Services;
+namespace App\Shared\Infrastructure\Services;
 
 use App\Shared\Domain\Contracts\TokenGeneratorInterface;
 use Random\RandomException;

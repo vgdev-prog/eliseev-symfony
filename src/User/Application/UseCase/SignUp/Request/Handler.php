@@ -10,7 +10,7 @@ use App\Shared\Domain\ValueObject\Id;
 use App\User\Domain\Contract\PasswordHasherInterface;
 use App\User\Domain\Contract\SignUpConfirmEmailSenderInterface;
 use App\User\Domain\Contract\UserRepositoryInterface;
-use App\User\Domain\Entity\User\User;
+use App\User\Domain\Entity\User;
 use App\User\Domain\ValueObject\Email;
 use DateTimeImmutable;
 use DomainException;

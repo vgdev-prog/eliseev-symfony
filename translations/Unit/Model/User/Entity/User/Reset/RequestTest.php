@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Model\User\Entity\User\Reset;
+namespace translations\Unit\Model\User\Entity\User\Reset;
 
 use App\Shared\Domain\ValueObject\Id;
-use App\User\Domain\Entity\User\User;
+use App\User\Domain\Entity\User;
 use App\User\Domain\ValueObject\Email;
 use App\User\Domain\ValueObject\ResetToken;
 use PHPUnit\Framework\TestCase;
