@@ -1,0 +1,10 @@
+# User Module Routes
+#
+# This file loads all routes from controller attributes in ../Http/ directory.
+# Controllers should use #[Route] attribute to define their endpoints.
+
+user_controllers:
+    resource: ../Http/
+    type: attribute
+    prefix: /api/v1/users
+    name_prefix: 'api.user.'

@@ -1,0 +1,35 @@
+# Shared Module Configuration
+# This module provides cross-cutting concerns:
+#   - Exception handling (DomainExceptionListener)
+#   - DTO serialization (DTODenormalizer)
+#   - Common infrastructure services
+
+parameters:
+    app.name: '%env(default::APP_NAME:string)%'
+    app.debug: '%kernel.debug%'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        bind:
+            bool $debug: '%kernel.debug%'
+
+    App\Shared\:
+        resource: '../../'
+        exclude:
+            - '../../Domain/Entity/'
+            - '../../Infrastructure/config/'
+
+    App\Shared\Infrastructure\EventListeners\DomainExceptionListener:
+        arguments:
+            $isDebug: '%kernel.debug%'
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, priority: 10 }
+
+    App\Shared\Domain\Contracts\FlusherInterface:
+        alias: App\Shared\Infrastructure\Persistence\DoctrineFlusher
+
+    # Domain Event Dispatcher
+    App\Shared\Domain\Event\DomainEventDispatcherInterface:
+        alias: App\Shared\Infrastructure\Event\DomainEventDispatcher

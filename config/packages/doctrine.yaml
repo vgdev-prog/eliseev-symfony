@@ -17,13 +17,8 @@ doctrine:
         identity_generation_preferences:
             Doctrine\DBAL\Platforms\PostgreSQLPlatform: identity
         auto_mapping: true
-        mappings:
-            User:
-                type: attribute
-                is_bundle: false
-                dir: '%kernel.project_dir%/src/Model/User/Entity'
-                prefix: 'App\Model\User\Entity'
-                alias: User
+        # Mappings are configured in each module's doctrine.yaml
+        # See: src/**/Infrastructure/config/doctrine.yaml
         controller_resolver:
             auto_mapping: false
 

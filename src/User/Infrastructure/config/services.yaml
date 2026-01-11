@@ -1,0 +1,37 @@
+# User Module Configuration
+#
+# This module provides user management functionality:
+#   - User registration and confirmation
+#   - Password reset
+#   - Social network authentication
+
+parameters:
+    user.reset_token_ttl: 'PT1H'      # 1 hour
+    user.confirm_token_ttl: 'P1D'     # 1 day
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # Auto-register ONLY User module services
+    App\User\:
+        resource: '../../'
+        exclude:
+            - '../../Entity/'
+            - '../../Infrastructure/config/'
+
+    # Reset token interval
+    user.reset_token.interval:
+        class: DateInterval
+        arguments: ['%user.reset_token_ttl%']
+
+    # Confirm token interval
+    user.confirm_token.interval:
+        class: DateInterval
+        arguments: ['%user.confirm_token_ttl%']
+
+    # ResetTokenizer service (if it exists)
+    # App\User\Services\ResetTokenizer:
+    #     arguments:
+    #         $interval: '@user.reset_token.interval'

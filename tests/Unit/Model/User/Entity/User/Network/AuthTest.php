@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Model\User\Entity\User\Network;
 
-use App\Model\Shared\Domain\ValueObject\Id;
-use App\Model\User\Entity\User\Network;
-use App\Model\User\Entity\User\User;
+use App\Shared\Domain\ValueObject\Id;
+use App\User\Domain\Entity\User\Network;
+use App\User\Domain\Entity\User\User;
 use PHPUnit\Framework\TestCase;
 
 class AuthTest extends TestCase

@@ -18,7 +18,8 @@
     </php>
 
     <testsuites>
-        <testsuite name="Project Test Suite">
+        <testsuite name="All">
+            <directory>src/*/Ifrastructure/Tests</directory>
             <directory>tests</directory>
         </testsuite>
     </testsuites>
