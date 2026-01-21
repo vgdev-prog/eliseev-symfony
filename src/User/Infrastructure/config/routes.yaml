@@ -7,4 +7,3 @@ user_controllers:
     resource: ../Http/
     type: attribute
     prefix: /api/v1/users
-    name_prefix: 'api.user.'

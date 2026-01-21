@@ -27,6 +27,10 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.exception, priority: 10 }
 
+    App\Shared\Domain\ValueObject\FrontendUrl:
+        arguments:
+            $baseUrl: '%env(FRONTEND_URL)%'
+
     App\Shared\Domain\Contract\FlusherInterface:
         alias: App\Shared\Infrastructure\Persistence\DoctrineFlusher
 

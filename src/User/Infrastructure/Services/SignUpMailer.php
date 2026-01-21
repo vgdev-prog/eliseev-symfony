@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\User\Infrastructure\Services;
 
 use App\Shared\Domain\ValueObject\Email;
+use App\Shared\Domain\ValueObject\FrontendUrl;
 use App\User\Domain\Contract\UserMailerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
@@ -15,8 +16,8 @@ readonly class SignUpMailer implements UserMailerInterface
 {
     public function __construct(
         private MailerInterface       $mailer,
-        private UrlGeneratorInterface $urlGenerator,
         private string                $senderMail,
+        private FrontendUrl           $frontendUrl,
     )
     {
     }
@@ -26,11 +27,7 @@ readonly class SignUpMailer implements UserMailerInterface
      */
     public function sendConfirmation(Email $email, string $token): void
     {
-        $confirmUrl = $this->urlGenerator->generate(
-            'auth.signup.confirm',
-            ['token' => $token],
-            UrlGeneratorInterface::ABSOLUTE_URL,
-        );
+        $confirmUrl = $this->frontendUrl->confirmEmail($token);
 
         $message = (new TemplatedEmail())
             ->from($this->senderMail)
@@ -38,7 +35,8 @@ readonly class SignUpMailer implements UserMailerInterface
             ->subject('Подтверждение регистрации')
             ->htmlTemplate('@User/email/signup_confirmation.html.twig')
             ->context([
-                'confirmUrl' => $confirmUrl
+                'confirmUrl' => $confirmUrl,
+                'expiresIn' => '24 hours'
             ]);
 
         $this->mailer->send($message);

@@ -23,6 +23,7 @@ use Exception;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Table(name: 'user_users',uniqueConstraints: [
@@ -133,12 +134,10 @@ final class User extends AggregateRoot implements UserInterface, PasswordAuthent
             resetToken: $resetToken
         );
 
-        if (!$user->isNew()) {
-            throw new DomainException('User is already signed up.');
-        }
+
         $event = new UserSignedUpByEmail(
             $user->getId()->getValue(),
-            $user->getEmail()->getValue()
+            $user->getEmail()->getValue(),
         );
 
         $user->recordEvent($event);
@@ -213,9 +212,9 @@ final class User extends AggregateRoot implements UserInterface, PasswordAuthent
         $this->confirmToken = null;
     }
 
-    public function upgradePasswordHash(string $plainPassword): void
+    public function upgradePasswordHash(string $hashedPassword): void
     {
-        $this->password = $plainPassword;
+        $this->password = $hashedPassword;
     }
 
     public function requestPasswordReset(ResetToken $token, DateTimeImmutable $now): void

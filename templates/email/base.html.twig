@@ -1,38 +1,90 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{% block title %}{% endblock %}</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .button {
-            display: inline-block;
-            padding: 12px 24px;
-            background: #007bff;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 4px;
-        }
-        .small {
-            font-size: 12px;
-            color: #666;
-        }
+    <!--[if mso]>
+    <style type="text/css">
+        body, table, td {font-family: Arial, Helvetica, sans-serif !important;}
     </style>
+    <![endif]-->
 </head>
-<body>
-{% block content %}{% endblock %}
+<body style="margin: 0; padding: 0; background-color: #fff7ed; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+    <!-- Wrapper -->
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #fff7ed;">
+        <tr>
+            <td align="center" style="padding: 40px 20px;">
+                <!-- Container -->
+                <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="max-width: 600px; width: 100%;">
 
-<hr>
-<p class="small">
-    © {{ "now"|date("Y") }} Your App. Все права защищены.
-</p>
+                    <!-- Logo Header -->
+                    <tr>
+                        <td align="center" style="padding-bottom: 30px;">
+                            <div style="font-size: 32px; font-weight: 700; color: #f97316; letter-spacing: -0.5px;">
+                                {% block logo %}Башмачок{% endblock %}
+                            </div>
+                            <p style="margin: 8px 0 0; font-size: 14px; color: #9ca3af;">
+                                Щасливі ніжки — щасливі діти!
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- Main Card -->
+                    <tr>
+                        <td>
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #ffffff; border-radius: 16px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 10px 20px rgba(0, 0, 0, 0.03);">
+                                <tr>
+                                    <td style="padding: 48px 40px;">
+                                        {% block content %}{% endblock %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td align="center" style="padding-top: 32px;">
+                            <!-- Contact Info -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                                <tr>
+                                    <td align="center" style="padding-bottom: 16px;">
+                                        <span style="font-size: 14px; color: #6b7280;">
+                                            📞 +38 (066) 000 00 00 &nbsp;&nbsp;|&nbsp;&nbsp; 🕐 Пн-Сб: 9:00 - 18:00
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Links -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                                <tr>
+                                    <td style="padding: 0 12px;">
+                                        <a href="#" style="color: #f97316; text-decoration: none; font-size: 13px; font-weight: 500;">Каталог</a>
+                                    </td>
+                                    <td style="color: #d1d5db;">|</td>
+                                    <td style="padding: 0 12px;">
+                                        <a href="#" style="color: #f97316; text-decoration: none; font-size: 13px; font-weight: 500;">Доставка</a>
+                                    </td>
+                                    <td style="color: #d1d5db;">|</td>
+                                    <td style="padding: 0 12px;">
+                                        <a href="#" style="color: #f97316; text-decoration: none; font-size: 13px; font-weight: 500;">Контакти</a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <p style="margin: 20px 0 0; font-size: 12px; color: #9ca3af; line-height: 1.5;">
+                                © {{ "now"|date("Y") }} Башмачок. Всі права захищені.<br>
+                                Безкоштовна доставка від 1000 грн
+                            </p>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>

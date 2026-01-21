@@ -25,7 +25,6 @@ readonly class SignUpByEmailHandler
         private PasswordHasherInterface        $hasher,
         private TokenGeneratorInterface        $tokenGenerator,
         private DomainEventDispatcherInterface $domainEventDispatcher,
-        private UserMailerInterface            $sender,
         private FlusherInterface               $flusher
     )
     {

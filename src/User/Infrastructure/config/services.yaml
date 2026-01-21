@@ -25,7 +25,7 @@ services:
 
     App\User\Infrastructure\Services\SignUpMailer:
         arguments:
-            $senderMail: '%env(MAILER_SENDER)'
+            $senderMail: '%env(MAILER_SENDER)%'
 
     App\User\Domain\Contract\ResetTokenizerInterface:
         alias: App\User\Infrastructure\Services\ResetTokenizer
